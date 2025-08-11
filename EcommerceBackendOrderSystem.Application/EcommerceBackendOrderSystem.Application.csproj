@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jose-jwt" Version="5.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.Domain\EcommerceBackendOrderSystem.Domain.csproj" />
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.Infrastructure\EcommerceBackendOrderSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.UnitTestCases\EcommerceBackendOrderSystem.UnitTestCases.csproj" />
+  </ItemGroup>
+
+</Project>
