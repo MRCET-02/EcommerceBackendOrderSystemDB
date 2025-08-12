@@ -5,10 +5,14 @@ using EcommerceBackendOrderSystem.Infrastructure.Repositories;
 using EcommerceBackendOrderSystem.Infrastructure.Repositories.IRepositories;
 using EcommerceBackendOrderSystem.Infrastructure.Repositories.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+
+
+
 
 namespace EcommerceBackendOrderSystem.API
 {
@@ -23,6 +27,7 @@ namespace EcommerceBackendOrderSystem.API
                 con.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add Authorization and Controllers
+
             builder.Services.AddAuthorization();
             builder.Services.AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -38,6 +43,12 @@ namespace EcommerceBackendOrderSystem.API
             builder.Services.AddScoped<IAuthService, AuthServices>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+     
+  
+
 
 
             // Service registrations

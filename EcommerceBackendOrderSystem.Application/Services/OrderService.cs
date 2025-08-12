@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EcommerceBackendOrderSystem.Application.DTO;
 using EcommerceBackendOrderSystem.Application.Interfaces;
@@ -91,6 +90,22 @@ namespace EcommerceBackendOrderSystem.Application.Services
                 throw new Exception("Order not found.");
 
             order.Status = newStatus;
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> AssignDeliveryAgentAsync(int orderId, int deliveryAgentId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null)
+                throw new Exception("Order not found.");
+
+            var deliveryAgent = await _context.Users.FindAsync(deliveryAgentId);
+            if (deliveryAgent == null)
+                throw new Exception("Delivery agent not found.");
+
+            order.DeliveryAgentId = deliveryAgentId;
             _context.Orders.Update(order);
             await _context.SaveChangesAsync();
             return true;

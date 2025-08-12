@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EcommerceBackendOrderSystem.Domain\EcommerceBackendOrderSystem.Domain.csproj" />
     <ProjectReference Include="..\EcommerceBackendOrderSystem.Infrastructure\EcommerceBackendOrderSystem.Infrastructure.csproj" />
-    <ProjectReference Include="..\EcommerceBackendOrderSystem.UnitTestCases\EcommerceBackendOrderSystem.UnitTestCases.csproj" />
   </ItemGroup>
 
 </Project>

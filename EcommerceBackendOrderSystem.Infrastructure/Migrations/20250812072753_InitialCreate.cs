@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EcommerceBackendOrderSystem.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class EcommerceBackendOrderSystemsMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

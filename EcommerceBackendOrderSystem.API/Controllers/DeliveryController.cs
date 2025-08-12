@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EcommerceBackendOrderSystem.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using EcommerceBackendOrderSystem.Application.Interfaces;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EcommerceBackendOrderSystem.API.Controllers
@@ -12,16 +14,20 @@ namespace EcommerceBackendOrderSystem.API.Controllers
     public class DeliveryController : ControllerBase
     {
         private readonly IDeliveryService _deliveryService;
+        private readonly UserManager<User> _userManager;
 
-        public DeliveryController(IDeliveryService deliveryService)
+        public DeliveryController(IDeliveryService deliveryService, UserManager<User> userManager)
         {
             _deliveryService = deliveryService;
+            _userManager = userManager;
         }
 
         [HttpGet("orders")]
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetAssignedOrders()
         {
-            var deliveryAgentId = int.Parse(User.FindFirst("sub").Value);
+            if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var deliveryAgentId))
+                return Unauthorized("Invalid or missing delivery agent ID in token.");
+
             var orders = await _deliveryService.GetAssignedOrdersAsync(deliveryAgentId);
             return Ok(orders);
         }
@@ -29,10 +35,15 @@ namespace EcommerceBackendOrderSystem.API.Controllers
         [HttpPut("orders/{orderId}/delivered")]
         public async Task<IActionResult> MarkAsDelivered(int orderId)
         {
-            var deliveryAgentId = int.Parse(User.FindFirst("sub").Value);
+            if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var deliveryAgentId))
+                return Unauthorized("Invalid or missing delivery agent ID in token.");
+
             var result = await _deliveryService.MarkOrderAsDeliveredAsync(orderId, deliveryAgentId);
-            if (!result) return BadRequest("Order not found or not assigned to you.");
-            return Ok("Order marked as delivered.");
+            if (!result)
+                return BadRequest("Order not found or not assigned to you.");
+
+            return Ok("Order marked as delivered successfully.");
         }
     }
+
 }

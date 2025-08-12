@@ -1,6 +1,7 @@
 ﻿using EcommerceBackendOrderSystem.Application.DTO;
 
 using EcommerceBackendOrderSystem.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,8 +38,9 @@ namespace EcommerceBackendOrderSystem.Presentation.Controllers
             var order = await _orderService.GetOrderByIdAsync(orderId);
             return Ok(order);
         }
-
+        [Authorize(Roles = "DeliveryAgent")]
         [HttpPut("{orderId}/status")]
+  
         public async Task<IActionResult> UpdateOrderStatus(int orderId, [FromQuery] string newStatus)
         {
             if (!Enum.TryParse<Domain.Enums.OrderStatus>(newStatus, true, out var statusEnum))

@@ -72,8 +72,9 @@ namespace EcommerceBackendOrderSystem.Infrastructure.Data
                 .Property(o => o.Status)
                 .HasConversion<string>();
             modelBuilder.Entity<Role>()
-    .Property(r => r.Name)
-    .HasConversion<string>();
+       .Property(r => r.Name)
+       .HasConversion<string>();
+
 
 
         }

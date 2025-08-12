@@ -26,23 +26,29 @@ namespace EcommerceBackendOrderSystem.Application.Services
             var user = await _adminRepository.FindUserExistAsync(assignDto.Email);
             if (user == null) return false;
 
+            // Parse RoleType enum from input RoleName
             if (!Enum.TryParse<RoleType>(assignDto.RoleName, true, out var roleType))
                 return false;
 
-            var role = await _adminRepository.GetRoleByNameAsync(roleType);
-            if (role == null) return false;
+            int roleId = (int)roleType;
 
-            if (user.UserRoles.Any(ur => ur.RoleId == role.Id))
+            // Get role by Id, since Role.Name is stored as enum int in DB
+         
+
+            // Check if user already has the role by RoleId
+            if (user.UserRoles.Any(ur => ur.RoleId == roleId))
                 return false;
 
             var userRole = new UserRole
             {
                 UserId = user.Id,
-                RoleId = role.Id
+                RoleId = roleId
             };
 
             await _adminRepository.AddUserRoleAsync(userRole);
             return true;
         }
+
+
     }
 }

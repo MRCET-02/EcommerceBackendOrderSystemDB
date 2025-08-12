@@ -13,5 +13,6 @@ namespace EcommerceBackendOrderSystem.Application.Interfaces
         Task<List<OrderResponse>> GetAllOrdersAsync();
         Task<OrderResponse> GetOrderByIdAsync(int orderId);
         Task<bool> UpdateOrderStatusAsync(int orderId, Domain.Enums.OrderStatus newStatus);
+        Task<bool> AssignDeliveryAgentAsync(int orderId, int deliveryAgentId);
     }
 }

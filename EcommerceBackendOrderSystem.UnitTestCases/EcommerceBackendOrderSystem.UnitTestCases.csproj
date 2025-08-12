@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,18 +11,24 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="NUnit.Framework" />
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.API\EcommerceBackendOrderSystem.API.csproj" />
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.Application\EcommerceBackendOrderSystem.Application.csproj" />
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.Domain\EcommerceBackendOrderSystem.Domain.csproj" />
+    <ProjectReference Include="..\EcommerceBackendOrderSystem.Infrastructure\EcommerceBackendOrderSystem.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UnitTests\" />
+    <Using Include="NUnit.Framework" />
   </ItemGroup>
 
 </Project>
